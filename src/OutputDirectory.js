@@ -22,7 +22,10 @@ export class OutputDirectory {
     filenameWithoutExtension
   ) {
     const path = join(this.#path, `${filenameWithoutExtension}.json`);
-    writeFileSync(path, JSON.stringify(inventoryReferenceData.getAll()));
+    writeFileSync(
+      path,
+      JSON.stringify(inventoryReferenceData.getAll(), null, 2)
+    );
   }
 
   writeNormalizedInventoryToJSON(
@@ -30,6 +33,6 @@ export class OutputDirectory {
     filenameWithoutExtension
   ) {
     const path = join(this.#path, filenameWithoutExtension + ".json");
-    writeFileSync(path, JSON.stringify(normalizedInventory));
+    writeFileSync(path, JSON.stringify(normalizedInventory, null, 2));
   }
 }

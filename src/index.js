@@ -1,22 +1,18 @@
-import { InventoryReferenceData } from "./InventoryReferenceData.js";
 import { readInventory } from "./readInventory.js";
 import { OutputDirectory } from "./OutputDirectory.js";
 import { LocationReferenceData } from "./LocationReferenceData.js";
+import VehicleColorReferenceData from "./VehicleColorReferenceData.js";
+import VechicleModelReferenceData from "./VehicleModelReferenceData.js";
+import VechicleMakeReferenceData from "./VehicleMakeReferenceData.js";
 
 const denormalizedInventory = readInventory();
 
-const vehicleMakes = new InventoryReferenceData(
+const vehicleMakes = new VechicleMakeReferenceData(denormalizedInventory);
+const vehicleModels = new VechicleModelReferenceData(
   denormalizedInventory,
-  "vehicle_make"
+  vehicleMakes
 );
-const vehicleModels = new InventoryReferenceData(
-  denormalizedInventory,
-  "vehicle_model"
-);
-const vehicleColor = new InventoryReferenceData(
-  denormalizedInventory,
-  "vehicle_color"
-);
+const vehicleColor = new VehicleColorReferenceData(denormalizedInventory);
 
 const locations = new LocationReferenceData(denormalizedInventory);
 
@@ -29,7 +25,6 @@ const normalizedInventory = denormalizedInventory.map((item) => ({
   purchase_price_cents: item.purchase_price_cents,
   purchase_date: item.purchase_date,
   location_id: locations.getIdByLocation(item.location),
-  vehicle_make_id: vehicleMakes.getIdByName(item.vehicle_make),
   vehicle_model_id: vehicleModels.getIdByName(item.vehicle_model),
 }));
 
