@@ -5,5 +5,4 @@ This application generates automart inventory data that can be used in automart 
 ## Usage
 
 1. Install the dependencies by running `npm install`
-2. Run `npm run start`
-3. Copy the data from dist directory into the application under development.
+2. Run `npm run start -- ../relative/path/to/output`.

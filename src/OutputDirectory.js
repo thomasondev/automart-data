@@ -5,8 +5,8 @@ import { cwd } from "process";
 export class OutputDirectory {
   #path;
 
-  constructor() {
-    this.#path = join(cwd(), "dist");
+  constructor(path = "dist") {
+    this.#path = join(cwd(), path);
   }
 
   removeAndCreate() {

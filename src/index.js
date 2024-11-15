@@ -13,10 +13,10 @@ const vehicleModels = new VechicleModelReferenceData(
   vehicleMakes
 );
 const vehicleColor = new VehicleColorReferenceData(denormalizedInventory);
-
 const locations = new LocationReferenceData(denormalizedInventory);
 
-const normalizedInventory = denormalizedInventory.map((item) => ({
+const normalizedInventory = denormalizedInventory.map((item, index) => ({
+  id: index + 1,
   vehicle_year: item.vehicle_year,
   vehicle_color_id: vehicleColor.getIdByName(item.vehicle_color),
   vehicle_vin: item.vehicle_vin,
@@ -28,7 +28,8 @@ const normalizedInventory = denormalizedInventory.map((item) => ({
   vehicle_model_id: vehicleModels.getIdByName(item.vehicle_model),
 }));
 
-const outDirectory = new OutputDirectory();
+const outDirectoryRelativePath = process.argv[2];
+const outDirectory = new OutputDirectory(outDirectoryRelativePath);
 outDirectory.removeAndCreate();
 outDirectory.writeInventoryReferenceDataToJSON(
   vehicleMakes,
